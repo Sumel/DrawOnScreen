@@ -1,5 +1,6 @@
 package com.example.drawonphoto;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -42,8 +43,14 @@ public class MainActivity extends Activity {
 	}
 	
 	public void editClick(View v){
-		/*
+		
+		Intent intent = new Intent(this,EditPhotoActivity.class);
+    	intent.putExtra(EditPhotoActivity.keyPhoto, editedPhoto);
+    	startActivity(intent);
+
+    	/*
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.
 		if(intent.resolveActivity(getPackageManager()) != null){
 			startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
 		}

@@ -1,10 +1,12 @@
 package com.example.drawonphoto;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -13,6 +15,8 @@ public class DrawingView extends ImageView {
 	
 	private Paint paint = new Paint();
 	private Path path = new Path();
+	
+	private Bitmap bitMap;
 	
 	public DrawingView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -27,8 +31,20 @@ public class DrawingView extends ImageView {
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		//super.onDraw(canvas);
+		//canvas = new Canvas(((BitmapDrawable)getDrawable()).getBitmap());
+		//canvas.setBitmap(((BitmapDrawable)getDrawable()).getBitmap());
+		if(bitMap!=null){
+			Canvas singleCanvas = new Canvas();    
+			singleCanvas.setBitmap(bitMap); 
+			singleCanvas.drawPath(path,paint);
+		}
+		
+		//if(bitMap!=null)
+			//canvas.setBitmap(bitMap);
+		
+		super.onDraw(canvas);
 		canvas.drawPath(path, paint);
+		
 	}
 	
 	@Override
@@ -52,5 +68,10 @@ public class DrawingView extends ImageView {
 		return super.onTouchEvent(event);
 	}
 	
+	@Override
+	public void setImageBitmap(Bitmap bm) {
+		super.setImageBitmap(bm);
+		bitMap = bm;
+	}
 	
 }
