@@ -24,8 +24,13 @@ public class MainActivity extends Activity {
 		
 		setContentView(R.layout.activity_main);
 		imageView = (ImageView) findViewById(R.id.imageView1);
-		if(editedPhoto!=null){
-			imageView.setImageBitmap(editedPhoto);
+		
+		if (savedInstanceState != null){
+			rawPhoto = (Bitmap) savedInstanceState.getParcelable("rawImage");
+			editedPhoto = (Bitmap) savedInstanceState.getParcelable("editedImage");
+			if(editedPhoto!=null){
+				imageView.setImageBitmap(editedPhoto);
+			}
 		}
 	}
 	
@@ -58,5 +63,9 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+		
+		outState.putParcelable("editedImage", editedPhoto);
+		outState.putParcelable("rawImage", rawPhoto);
+		
 	}
 }
