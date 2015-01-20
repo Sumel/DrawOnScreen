@@ -17,10 +17,16 @@ public class MainActivity extends Activity {
 	
 	Bitmap rawPhoto = null;
 	Bitmap editedPhoto = null;
+	ImageView imageView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_main);
+		imageView = (ImageView) findViewById(R.id.imageView1);
+		if(editedPhoto!=null){
+			imageView.setImageBitmap(editedPhoto);
+		}
 	}
 	
 	public void photoClick(View v){
@@ -47,5 +53,10 @@ public class MainActivity extends Activity {
 			ImageView imageView = (ImageView) findViewById(R.id.imageView1);
 			imageView.setImageBitmap(editedPhoto);
 		}
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
 	}
 }
