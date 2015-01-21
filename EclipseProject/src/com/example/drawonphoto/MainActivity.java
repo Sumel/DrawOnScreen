@@ -13,8 +13,8 @@ import android.widget.ImageView;
 
 public class MainActivity extends Activity {
 
-	static final int REQUEST_IMAGE_CAPTURE = 1;
-	static final int REQUEST_EDIT_PHOTO = 2;
+	public static final int REQUEST_IMAGE_CAPTURE = 1;
+	public static final int REQUEST_EDIT_PHOTO = 2;
 	
 	Bitmap rawPhoto = null;
 	Bitmap editedPhoto = null;
@@ -46,8 +46,9 @@ public class MainActivity extends Activity {
 		
 		Intent intent = new Intent(this,EditPhotoActivity.class);
     	intent.putExtra(EditPhotoActivity.keyPhoto, editedPhoto);
-    	startActivity(intent);
-
+    	if(intent.resolveActivity(getPackageManager()) != null){
+    		startActivityForResult(intent, REQUEST_EDIT_PHOTO);
+    	}
     	/*
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		intent.
@@ -62,6 +63,12 @@ public class MainActivity extends Activity {
 		if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
 			Bundle extras = data.getExtras();
 			rawPhoto = editedPhoto = (Bitmap) extras.get("data");
+			ImageView imageView = (ImageView) findViewById(R.id.imageView1);
+			imageView.setImageBitmap(editedPhoto);
+		}
+		else if(requestCode == REQUEST_EDIT_PHOTO && resultCode == RESULT_OK){
+			Bundle extras = data.getExtras();
+			editedPhoto = (Bitmap) extras.get("photo");
 			ImageView imageView = (ImageView) findViewById(R.id.imageView1);
 			imageView.setImageBitmap(editedPhoto);
 		}
