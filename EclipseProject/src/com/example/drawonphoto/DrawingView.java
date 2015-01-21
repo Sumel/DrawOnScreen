@@ -27,20 +27,12 @@ public class DrawingView extends ImageView {
 		paint.setColor(Color.RED);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeJoin(Paint.Join.ROUND);
+		
+		this.setDrawingCacheEnabled(true);
 	}
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		//canvas = new Canvas(((BitmapDrawable)getDrawable()).getBitmap());
-		//canvas.setBitmap(((BitmapDrawable)getDrawable()).getBitmap());
-		if(bitMap!=null){
-			Canvas singleCanvas = new Canvas();    
-			singleCanvas.setBitmap(bitMap); 
-			singleCanvas.drawPath(path,paint);
-		}
-		
-		//if(bitMap!=null)
-			//canvas.setBitmap(bitMap);
 		
 		super.onDraw(canvas);
 		canvas.drawPath(path, paint);
@@ -74,4 +66,11 @@ public class DrawingView extends ImageView {
 		bitMap = bm;
 	}
 	
+	public Bitmap getBitmap(){
+			Bitmap toReturn = this.getDrawingCache();
+			if(toReturn.isRecycled()){
+				System.out.println("isrecycled, very bad");
+			}
+		   return toReturn.copy(toReturn.getConfig(), true);
+		}
 }

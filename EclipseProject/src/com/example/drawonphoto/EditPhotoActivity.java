@@ -26,6 +26,9 @@ public class EditPhotoActivity extends Activity {
 			
 			basePhoto = (Bitmap) savedInstanceState.getParcelable("baseImage");
 			editedPhoto = (Bitmap) savedInstanceState.getParcelable("editedImage");
+			if(editedPhoto.isRecycled()){
+				System.out.println("lol, recycled in activity");
+			}
 		}
 		else{
 			editedPhoto = basePhoto = getIntent().getParcelableExtra(keyPhoto);
@@ -41,7 +44,7 @@ public class EditPhotoActivity extends Activity {
 		
 		editedPhoto = ((BitmapDrawable)drawingView.getDrawable()).getBitmap();
 		
-		outState.putParcelable("editedImage", editedPhoto);
+		outState.putParcelable("editedImage", drawingView.getBitmap());
 		outState.putParcelable("baseImage", basePhoto);
 		//drawingView.get
 		//drawingView.get
