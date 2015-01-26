@@ -73,4 +73,13 @@ public class DrawingView extends ImageView {
 			}
 		   return toReturn.copy(toReturn.getConfig(), true);
 		}
+	
+	public void SetStroke(int newStroke)
+	{
+		
+	}
+	public void SetColor(Color newColor)
+	{
+		
+	}
 }

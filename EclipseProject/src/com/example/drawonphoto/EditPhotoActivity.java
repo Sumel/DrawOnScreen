@@ -1,6 +1,7 @@
 package com.example.drawonphoto;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -76,10 +77,23 @@ public class EditPhotoActivity extends Activity {
 		//super.finish();
 	//}
 	
-	public void Cofam(View v)
+	public static Bitmap scaleDownBitmap(Bitmap photo, int newHeight, Context context) {
+
+		 final float densityMultiplier = context.getResources().getDisplayMetrics().density;        
+
+		 int h= (int) (newHeight*densityMultiplier);
+		 int w= (int) (h * photo.getWidth()/((double) photo.getHeight()));
+
+		 photo=Bitmap.createScaledBitmap(photo, w, h, true);
+
+		 return photo;
+	 }
+	
+	public void ReturnPhoto(View v)
 	{
 		editedPhoto = drawingView.getBitmap();
 		Intent resultIntent = new Intent();
+		editedPhoto = scaleDownBitmap(editedPhoto, 300, this);
 		resultIntent.putExtra("photo",editedPhoto);
 		setResult(Activity.RESULT_OK, resultIntent);
 		
