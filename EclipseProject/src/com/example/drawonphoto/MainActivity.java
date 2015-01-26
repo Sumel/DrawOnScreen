@@ -1,10 +1,15 @@
 package com.example.drawonphoto;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +45,45 @@ public class MainActivity extends Activity {
 		if(intent.resolveActivity(getPackageManager()) != null){
 			startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
 		}
+	}
+	
+	public void saveClick(View v){
+		String path = Environment.getExternalStorageDirectory().toString();
+		path += "/Smieci/DrawOnPhoto";
+	
+		
+		File f = new File(path);
+		
+		if(!f.exists() || !f.isDirectory()){
+			f.mkdirs();
+		}
+		
+		File children[] = f.listFiles();
+		
+		int counter = 0;
+		if(children != null)
+		{
+			counter = children.length;
+		}
+		File file = new File(path, "ProfessionalPhoto"+ counter +".png"); // the File to save to
+		
+		FileOutputStream out = null;
+		try {
+		    out = new FileOutputStream(file);
+		    editedPhoto.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+		    // PNG is a lossless format, the compression factor (100) is ignored
+		} catch (Exception e) {
+		    e.printStackTrace();
+		} finally {
+		    try {
+		        if (out != null) {
+		            out.close();
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		}
+		
 	}
 	
 	public void editClick(View v){
@@ -82,4 +126,6 @@ public class MainActivity extends Activity {
 		outState.putParcelable("rawImage", rawPhoto);
 		
 	}
+	
+	
 }

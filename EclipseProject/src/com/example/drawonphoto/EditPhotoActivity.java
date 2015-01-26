@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 public class EditPhotoActivity extends Activity {
 	public static final String keyPhoto = "photo";
@@ -39,6 +40,11 @@ public class EditPhotoActivity extends Activity {
 		}
 		
 		drawingView.setImageBitmap(editedPhoto);
+		
+		
+		//setting up seekbar
+		
+		final SeekBar sk=(SeekBar) findViewById(R.id.seekBar1);     
 	}
 	
 	
