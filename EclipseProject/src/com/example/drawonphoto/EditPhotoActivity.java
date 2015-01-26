@@ -5,14 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class EditPhotoActivity extends Activity {
 	public static final String keyPhoto = "photo";
@@ -42,9 +47,67 @@ public class EditPhotoActivity extends Activity {
 		drawingView.setImageBitmap(editedPhoto);
 		
 		
+		
 		//setting up seekbar
 		
-		final SeekBar sk=(SeekBar) findViewById(R.id.seekBar1);     
+		final SeekBar sk=(SeekBar) findViewById(R.id.seekBar1); 
+		
+		sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				// TODO Auto-generated method stub
+				drawingView.SetStroke(progress);
+			}
+		});      
+		
+		ListView listView = (ListView) findViewById(R.id.listView1);
+		
+		String[] arr = {"Red", "Blue", "Green"};
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.list_view_item,arr);
+		
+		listView.setAdapter(adapter);
+		
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {  
+	    	   public void onItemClick(AdapterView parentView, View childView, 
+	    	                                                         int position, long id) 
+	    	   {  
+	    		   TextView tv = (TextView)childView;
+	    		   
+	    		   String a = tv.getText().toString();
+	    		   
+	    		   if(a == "Red")
+	    		   {
+	    			  drawingView.SetColor(Color.RED); 
+	    		   }
+	    		   else if (a == "Blue")
+	    		   {
+	    			   drawingView.SetColor(Color.BLUE);
+	    		   }
+	    		   else if (a == "Green")
+	    		   {
+	    			   drawingView.SetColor(Color.GREEN);
+	    		   }
+	    	   }
+
+	    	   public void onNothingSelected(AdapterView parentView) {  
+
+	    	   }  
+	    	});
 	}
 	
 	

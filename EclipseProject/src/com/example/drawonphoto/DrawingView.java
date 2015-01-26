@@ -76,10 +76,12 @@ public class DrawingView extends ImageView {
 	
 	public void SetStroke(int newStroke)
 	{
-		
+		paint.setStrokeWidth(newStroke);
+		invalidate();
 	}
-	public void SetColor(Color newColor)
+	public void SetColor(int newColor)
 	{
-		
+		invalidate();
+		paint.setColor(newColor);
 	}
 }
