@@ -25,6 +25,8 @@ public class EditPhotoActivity extends Activity {
 	Bitmap editedPhoto;
 	Canvas editCanvas;
 	DrawingView drawingView;
+	
+	ColorStringPair[] arr;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,9 +78,12 @@ public class EditPhotoActivity extends Activity {
 		
 		ListView listView = (ListView) findViewById(R.id.listView1);
 		
-		String[] arr = {"Red", "Blue", "Green"};
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.list_view_item,arr);
+		arr = new ColorStringPair[]{new ColorStringPair(Color.RED, "Red"),
+				new ColorStringPair(Color.BLUE, "Blue"),
+				new ColorStringPair(Color.GREEN, "Green")
+		};
+		ArrayAdapter<ColorStringPair> adapter = new ArrayAdapter<ColorStringPair>(this,R.layout.list_view_item,arr);
 		
 		listView.setAdapter(adapter);
 		
@@ -86,22 +91,7 @@ public class EditPhotoActivity extends Activity {
 	    	   public void onItemClick(AdapterView parentView, View childView, 
 	    	                                                         int position, long id) 
 	    	   {  
-	    		   TextView tv = (TextView)childView;
-	    		   
-	    		   String a = tv.getText().toString();
-	    		   
-	    		   if(a == "Red")
-	    		   {
-	    			  drawingView.SetColor(Color.RED); 
-	    		   }
-	    		   else if (a == "Blue")
-	    		   {
-	    			   drawingView.SetColor(Color.BLUE);
-	    		   }
-	    		   else if (a == "Green")
-	    		   {
-	    			   drawingView.SetColor(Color.GREEN);
-	    		   }
+	    		   drawingView.SetColor(arr[position].Color);
 	    	   }
 
 	    	   public void onNothingSelected(AdapterView parentView) {  
